@@ -95,7 +95,7 @@ public static class VarRegistry
             ),
 
             [("reverser", "position")] = new VarDescriptor(
-                name: "train_brake",
+                name: "reverser",
                 unit: "position", // float 0 -> 1
                 ns: "DerailValleyWebSocket",
                 path: "CarHelper",

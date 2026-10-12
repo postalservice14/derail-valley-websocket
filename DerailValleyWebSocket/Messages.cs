@@ -12,7 +12,13 @@ public enum MessageType
     SubscribeToEvent,
     UnsubscribeFromVar,
     UnsubscribeFromEvent,
-    Error
+    Error,
+
+    // protocol v2
+    Hello,
+    State,
+    Command,
+    CommandResult
 }
 
 public class Message<TPayload>

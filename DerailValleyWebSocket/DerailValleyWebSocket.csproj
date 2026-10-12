@@ -17,6 +17,7 @@
 		<Reference Include="DV.ThingTypes" />
 		<Reference Include="DV.Utils" />
 		<Reference Include="DV.Simulation" />
+		<Reference Include="DV.BrakeSystem" />
 	</ItemGroup>
 
 	<!-- Unity -->

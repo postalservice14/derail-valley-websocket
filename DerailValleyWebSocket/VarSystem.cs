@@ -166,9 +166,19 @@ public static class VarSystem
             if (cv == null)
                 throw new Exception("Value is null");
 
-            object? val = Fetch(cv);
+            // a var whose target is missing (e.g. PlayerManager.Car when on foot) is null, instead of
+            // throwing and dropping every other var from this frame
+            object? val;
+            try
+            {
+                val = Fetch(cv);
+            }
+            catch
+            {
+                val = null;
+            }
 
-            result[kv.Key] = val;
+            result[kv.Key] = val!;
         }
 
         return result;

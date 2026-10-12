@@ -16,11 +16,27 @@ public class UpdateDriver : MonoBehaviour
 
     void Update()
     {
-        _elapsed += Time.deltaTime;
+        // incoming messages and commands, every frame so controls feel immediate
+        MainThread.Drain();
+
+        // unscaled so emission keeps going while the game is paused
+        _elapsed += Time.unscaledDeltaTime;
         if (_elapsed < Main.settings.Rate)
             return;
 
         _elapsed = 0f;  // reset timer
+
+        try
+        {
+            Main.server.PublishState();
+        }
+        catch (Exception ex)
+        {
+            Logger.Log($"PublishState failed: {ex}");
+        }
+
+        if (!Main.server.HasLegacyClients || VarSystem.ActiveVars.Count == 0)
+            return;
 
         try
         {

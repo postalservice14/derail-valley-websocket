@@ -30,13 +30,14 @@ public static class Main
             harmony = new Harmony(modEntry.Info.Id);
             harmony.PatchAll(Assembly.GetExecutingAssembly());
 
+            // TODO: restart on port change
+            // server first: UpdateDriver uses it every frame
+            server = new WebsocketServer(settings.Port);
+            server.Start();
+
             var go = new GameObject("DerailValleyWebSocket_UpdateDriver");
             UnityEngine.Object.DontDestroyOnLoad(go);
             go.AddComponent<UpdateDriver>();
-
-            // TODO: restart on port change
-            server = new WebsocketServer(settings.Port);
-            server.Start();
 
             ModEntry.Logger.Log("DerailValleyWebSocket started");
         }

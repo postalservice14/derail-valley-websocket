@@ -12,6 +12,12 @@ Configure using UMM:
 | ---- | ----- | ------- | --------------- |
 | Port | `int` | 9450    | WebSocket port. |
 
+## Two-way control (protocol v2)
+
+Send a `hello` message to receive full `state` snapshots (controls, brake and steam pressures, resources, wheelslip, jobs) and to send `command`s that set or nudge the throttle, brakes and reverser, and operate the horn, sander and lights. See [PROTOCOL.md](PROTOCOL.md).
+
+The rest of this README describes the original v1 protocol, which still works for clients that don't send `hello`.
+
 ## Messages
 
 See `DerailValleyWebSocket/Messages.cs` for all messages.
@@ -94,9 +100,10 @@ Download the zip and use Unity Mod Manager to install it.
 Created in VSCode (with C# and C# Dev Kit extensions) and MSBuild.
 
 1. Clone repo
-2. Open `./DerailValleyWebSocket` in VSCode and make changes
-3. Run `msbuild` in root
-4. Copy `./dist/tmp` to mods folder
+2. Create `Directory.Build.targets` (gitignored) pointing `ReferencePath` at `<Derail Valley>\DerailValley_Data\Managed\`
+3. Open `./DerailValleyWebSocket` in VSCode and make changes
+4. Run `.\deploy.ps1` to build and copy into the game's `Mods` folder (or `dotnet build` and copy `./dist/tmp` yourself)
+5. Test with `test-client` (`npm run selftest`)
 
 ## Publishing
 
